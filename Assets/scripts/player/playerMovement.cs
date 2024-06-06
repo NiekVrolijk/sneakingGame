@@ -40,12 +40,6 @@ public class playerMovement : MonoBehaviour
     {
         Move();
     }
-
-    private void LateUpdate()
-    {
-
-    }
-
     private void Move()
     {
         //movement 
@@ -92,7 +86,6 @@ public class playerMovement : MonoBehaviour
     }
     private void idle()
     {
-
 
     }
 }

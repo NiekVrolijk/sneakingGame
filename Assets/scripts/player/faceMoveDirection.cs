@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class faceMoveDirection : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         FaceDirection();
