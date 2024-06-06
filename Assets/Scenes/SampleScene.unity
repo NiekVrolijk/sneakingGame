@@ -165,6 +165,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 408746846}
     m_Modifications:
+    - target: {fileID: 882019742719787588, guid: 551312bf35588c9459022638d14ce197, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3262044828562847245, guid: 551312bf35588c9459022638d14ce197, type: 3}
       propertyPath: m_Name
       value: enemy
@@ -997,6 +1001,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2369204180334081910, guid: c345f2408abcfba41a8d7adb15bb13ab, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5514851412870955222, guid: c345f2408abcfba41a8d7adb15bb13ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.37
