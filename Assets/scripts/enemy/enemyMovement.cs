@@ -47,6 +47,17 @@ public class enemyMovement : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
 
+    private Ray sightOnPlayer;
+    private RaycastHit lineOfSightClear;
+
+    //shoot at player
+    private float shootTimer;
+    private float canShoot = 0.3f;
+
+    public GameObject bullet;
+    public Transform bulletSpawnPoint;
+    private float bulletSpeed = 25;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +83,7 @@ public class enemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region spot player/ enemy movement
         SpotPlayer();
         followTimer += Time.deltaTime;
 
@@ -94,8 +106,11 @@ public class enemyMovement : MonoBehaviour
             RandomMove();
             noDestination = false;
         }
+        EyesOnPlayer();
+        #endregion
     }
 
+    #region movement
     //move to a random position in the designated squere
     public void RandomMove()
     {
@@ -111,7 +126,8 @@ public class enemyMovement : MonoBehaviour
         rend.sharedMaterial = attackMaterial;
         badEnemy.SetDestination(player.position);
     }
-
+    #endregion
+    #region spot player
     public void SpotPlayer()
     {
         Vector3 rayOrigin = transform.position;
@@ -124,7 +140,7 @@ public class enemyMovement : MonoBehaviour
         {
             if (hit.collider.CompareTag("player"))
             {
-                Debug.Log("player seen");
+                Debug.Log("player spotted");
                 playerSpotted = true;
             }
             else
@@ -133,4 +149,43 @@ public class enemyMovement : MonoBehaviour
             }
         }
     }
+    #endregion
+    #region shoot
+    public void EyesOnPlayer()
+    {
+        if (followTimer < stopFollowing)
+        {
+            Vector3 rayOrigin = transform.position;
+            Vector3 rayDirection = (player.position - transform.position).normalized;
+
+            Ray ray = new Ray(rayOrigin, rayDirection);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.CompareTag("player"))
+                {
+                    ShootAtPlayer();
+                }
+            }
+        }
+    }
+
+    public void ShootAtPlayer()
+    {
+        shootTimer += Time.deltaTime;
+
+        if (shootTimer >= canShoot)
+        {
+            GameObject spawnedBullet = Instantiate(bullet, bulletSpawnPoint.position, Quaternion.identity);
+            Vector3 directionToPlayer = (player.position - bulletSpawnPoint.position).normalized;
+            spawnedBullet.GetComponent<Rigidbody>().velocity = directionToPlayer * bulletSpeed;
+
+            Destroy(spawnedBullet, 5);
+            shootTimer = 0f;
+        }
+    }
+
+
+    #endregion
 }

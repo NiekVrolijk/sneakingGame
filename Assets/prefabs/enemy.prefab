@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1864613025158196377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 678364597107895856}
+  m_Layer: 0
+  m_Name: bulletSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &678364597107895856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864613025158196377}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6716180662362580877}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3262044828562847245
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,7 +45,7 @@ GameObject:
   - component: {fileID: 8479996503212198098}
   - component: {fileID: 5542126335739488754}
   - component: {fileID: 3325101578978504157}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: enemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -35,6 +66,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1262969888587390017}
+  - {fileID: 678364597107895856}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &494100096822818979
@@ -123,10 +155,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   badEnemy: {fileID: 3325101578978504157}
-  player: {fileID: 5514851412870955222, guid: c345f2408abcfba41a8d7adb15bb13ab, type: 3}
   defaultMaterial: {fileID: 2100000, guid: a9489e53f09eacb4e9f931f3ae398c05, type: 2}
   attackMaterial: {fileID: 2100000, guid: 4a994dc1d4697ff4297518f2f060ba81, type: 2}
   closeEnough: 2
+  bullet: {fileID: 1339654448570765958, guid: f3c670854deb789458428dcb854f853e, type: 3}
+  bulletSpawnPoint: {fileID: 678364597107895856}
 --- !u!195 &3325101578978504157
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -161,7 +194,7 @@ GameObject:
   - component: {fileID: 3927545645589082673}
   - component: {fileID: 188020105535179084}
   - component: {fileID: 882019742719787588}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
