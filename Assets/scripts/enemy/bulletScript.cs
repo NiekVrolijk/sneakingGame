@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class bulletScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.CompareTag("player"))
+        {
+            Debug.Log("you lost");
+            Destroy(gameObject);
+        } else
+        {
+            Destroy(gameObject);
+        }
     }
 }

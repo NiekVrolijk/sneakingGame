@@ -34,9 +34,7 @@ public class enemyMovement : MonoBehaviour
     private float currentYPosition;
 
     //distance form choosen point when it can choose another random point to move to.
-    public float closeEnough = 2;
-
-
+    private float closeEnough = 2;
 
     //spot player
     private bool playerSpotted = false;

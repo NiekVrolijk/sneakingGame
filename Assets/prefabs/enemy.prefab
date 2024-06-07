@@ -157,7 +157,7 @@ MonoBehaviour:
   badEnemy: {fileID: 3325101578978504157}
   defaultMaterial: {fileID: 2100000, guid: a9489e53f09eacb4e9f931f3ae398c05, type: 2}
   attackMaterial: {fileID: 2100000, guid: 4a994dc1d4697ff4297518f2f060ba81, type: 2}
-  closeEnough: 2
+  closeEnough: 10
   bullet: {fileID: 1339654448570765958, guid: f3c670854deb789458428dcb854f853e, type: 3}
   bulletSpawnPoint: {fileID: 678364597107895856}
 --- !u!195 &3325101578978504157
