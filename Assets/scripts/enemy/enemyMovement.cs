@@ -9,7 +9,13 @@ public class enemyMovement : MonoBehaviour
     //var
     //assign nav mesh agent and chooses the squere in which the enemy is allowed to try and move to
     public NavMeshAgent badEnemy;
+    public Transform player;
     private float squereOfMovement = 50f;
+
+    public Material defaultMaterial;
+    public Material attackMaterial;
+
+    private Renderer rend;
 
     //uses sqeure of movement to disside the max and min values of the squere on the X and Z axis
     private float xMin;
@@ -33,6 +39,8 @@ public class enemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rend = GetComponent<Renderer>();
+
         //sets min and max values of the squere
         xMin = -squereOfMovement;
         xMax = squereOfMovement;
@@ -51,9 +59,14 @@ public class enemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if close enough to the previous choosen point choose another
-        if (Vector3.Distance(transform.position, new Vector3(xPosition, yPosition, zPosition)) <= closeEnough)
+        if (spotPlayer.playerSpotted)
         {
+            rend.sharedMaterial = attackMaterial;
+            FollowPlayer();
+        }
+        else if (!spotPlayer.playerSpotted && Vector3.Distance(transform.position, new Vector3(xPosition, yPosition, zPosition)) <= closeEnough)
+        {
+            rend.sharedMaterial = defaultMaterial;
             RandomMove();
         }
     }
@@ -65,5 +78,10 @@ public class enemyMovement : MonoBehaviour
         zPosition = Random.Range(zMin, zMax);
         yPosition = transform.position.y;
         badEnemy.SetDestination(new Vector3(xPosition, yPosition, zPosition));
+    }
+
+    public void FollowPlayer()
+    {
+        badEnemy.SetDestination(player.position);
     }
 }
