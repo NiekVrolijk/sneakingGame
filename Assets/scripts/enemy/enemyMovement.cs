@@ -9,7 +9,7 @@ public class enemyMovement : MonoBehaviour
     //var
     //assign nav mesh agent and chooses the squere in which the enemy is allowed to try and move to
     public NavMeshAgent badEnemy;
-    public Transform player;
+    private Transform player;
     private float squereOfMovement = 50f;
 
     public Material defaultMaterial;
@@ -36,10 +36,23 @@ public class enemyMovement : MonoBehaviour
     //distance form choosen point when it can choose another random point to move to.
     public float closeEnough = 2;
 
+
+
+    //spot player
+    private bool playerSpotted = false;
+    private float followTimer;
+    private float stopFollowing = 10f;
+    private bool noDestination = false;
+
+    private Ray ray;
+    private RaycastHit hit;
+
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("player").transform;
         rend = GetComponent<Renderer>();
+        followTimer = 30;
 
         //sets min and max values of the squere
         xMin = -squereOfMovement;
@@ -59,21 +72,34 @@ public class enemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (spotPlayer.playerSpotted)
+        SpotPlayer();
+        followTimer += Time.deltaTime;
+
+        if (playerSpotted)
         {
-            rend.sharedMaterial = attackMaterial;
+            followTimer = 0;
+            noDestination = true;
+        } 
+
+        if (followTimer < stopFollowing)
+        {
             FollowPlayer();
         }
-        else if (!spotPlayer.playerSpotted && Vector3.Distance(transform.position, new Vector3(xPosition, yPosition, zPosition)) <= closeEnough)
+        else if (Vector3.Distance(transform.position, new Vector3(xPosition, yPosition, zPosition)) <= closeEnough)
         {
-            rend.sharedMaterial = defaultMaterial;
             RandomMove();
+        }
+        else if (noDestination)
+        {
+            RandomMove();
+            noDestination = false;
         }
     }
 
     //move to a random position in the designated squere
     public void RandomMove()
     {
+        rend.sharedMaterial = defaultMaterial;
         xPosition = Random.Range(xMin, xMax);
         zPosition = Random.Range(zMin, zMax);
         yPosition = transform.position.y;
@@ -82,6 +108,29 @@ public class enemyMovement : MonoBehaviour
 
     public void FollowPlayer()
     {
+        rend.sharedMaterial = attackMaterial;
         badEnemy.SetDestination(player.position);
+    }
+
+    public void SpotPlayer()
+    {
+        Vector3 rayOrigin = transform.position;
+
+        Vector3 rayDirection = transform.forward;
+
+        ray = new Ray(rayOrigin, rayDirection);
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.CompareTag("player"))
+            {
+                Debug.Log("player seen");
+                playerSpotted = true;
+            }
+            else
+            {
+                playerSpotted = false;
+            }
+        }
     }
 }
