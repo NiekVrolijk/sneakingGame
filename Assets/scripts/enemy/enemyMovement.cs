@@ -48,6 +48,9 @@ public class enemyMovement : MonoBehaviour
     private Ray sightOnPlayer;
     private RaycastHit lineOfSightClear;
 
+    // Angles for raycasts
+    private float[] raycastAngles = new float[] { 330, 345, 0, 15, 30 };
+
     //shoot at player
     private float shootTimer;
     private float canShoot = 0.3f;
@@ -112,11 +115,11 @@ public class enemyMovement : MonoBehaviour
     //move to a random position in the designated squere
     public void RandomMove()
     {
-        rend.sharedMaterial = defaultMaterial;
-        xPosition = Random.Range(xMin, xMax);
-        zPosition = Random.Range(zMin, zMax);
-        yPosition = transform.position.y;
-        badEnemy.SetDestination(new Vector3(xPosition, yPosition, zPosition));
+        //rend.sharedMaterial = defaultMaterial;
+        //xPosition = Random.Range(xMin, xMax);
+        //zPosition = Random.Range(zMin, zMax);
+        //yPosition = transform.position.y;
+        //badEnemy.SetDestination(new Vector3(xPosition, yPosition, zPosition));
     }
 
     public void FollowPlayer()
@@ -128,24 +131,25 @@ public class enemyMovement : MonoBehaviour
     #region spot player
     public void SpotPlayer()
     {
-        Vector3 rayOrigin = transform.position;
-
-        Vector3 rayDirection = transform.forward;
-
-        ray = new Ray(rayOrigin, rayDirection);
-
-        if (Physics.Raycast(ray, out hit))
+        foreach (float angle in raycastAngles)
         {
-            if (hit.collider.CompareTag("player"))
+            Vector3 rayDirection = Quaternion.Euler(0, angle, 0) * transform.forward;
+            ray = new Ray(transform.position, rayDirection);
+
+            //Debug.DrawRay(transform.position, rayDirection * 100, Color.red, 0.1f);
+
+            if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("player spotted");
-                playerSpotted = true;
-            }
-            else
-            {
-                playerSpotted = false;
+                if (hit.collider.CompareTag("player"))
+                {
+                    Debug.Log("Player spotted");
+                    playerSpotted = true;
+                    return;  // Exit the loop if the player is spotted
+                }
             }
         }
+
+        playerSpotted = false;
     }
     #endregion
     #region shoot
@@ -157,6 +161,7 @@ public class enemyMovement : MonoBehaviour
             Vector3 rayDirection = (player.position - transform.position).normalized;
 
             Ray ray = new Ray(rayOrigin, rayDirection);
+
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
