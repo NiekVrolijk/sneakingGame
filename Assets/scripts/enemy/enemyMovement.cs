@@ -115,11 +115,11 @@ public class enemyMovement : MonoBehaviour
     //move to a random position in the designated squere
     public void RandomMove()
     {
-        //rend.sharedMaterial = defaultMaterial;
-        //xPosition = Random.Range(xMin, xMax);
-        //zPosition = Random.Range(zMin, zMax);
-        //yPosition = transform.position.y;
-        //badEnemy.SetDestination(new Vector3(xPosition, yPosition, zPosition));
+        rend.sharedMaterial = defaultMaterial;
+        xPosition = Random.Range(xMin, xMax);
+        zPosition = Random.Range(zMin, zMax);
+        yPosition = transform.position.y;
+        badEnemy.SetDestination(new Vector3(xPosition, yPosition, zPosition));
     }
 
     public void FollowPlayer()
