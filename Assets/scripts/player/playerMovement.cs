@@ -9,7 +9,7 @@ public class playerMovement : MonoBehaviour
 
     // x and z speed for running and walking (and for doing so while in the air)
     [SerializeField] private float currentSpeed;
-    [SerializeField] public static float speed = 3f;
+    [SerializeField] public static float speed = 2.5f;
 
     //jump (y speed)
     public float gravity = -30f;
