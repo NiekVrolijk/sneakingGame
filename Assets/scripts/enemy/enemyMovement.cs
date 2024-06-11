@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class enemyMovement : MonoBehaviour
 {
@@ -41,6 +42,9 @@ public class enemyMovement : MonoBehaviour
     private float followTimer;
     private float stopFollowing = 10f;
     private bool noDestination = false;
+
+    private float randomMovementTimer;
+    private float changeDestination = 30f;
 
     private Ray ray;
     private RaycastHit hit;
@@ -87,6 +91,7 @@ public class enemyMovement : MonoBehaviour
         #region spot player/ enemy movement
         SpotPlayer();
         followTimer += Time.deltaTime;
+        randomMovementTimer += Time.deltaTime;
 
         if (playerSpotted)
         {
@@ -101,6 +106,11 @@ public class enemyMovement : MonoBehaviour
         else if (Vector3.Distance(transform.position, new Vector3(xPosition, yPosition, zPosition)) <= closeEnough)
         {
             RandomMove();
+        }
+        else if (randomMovementTimer >= changeDestination)
+        {
+            RandomMove();
+            randomMovementTimer = 0;
         }
         else if (noDestination)
         {
