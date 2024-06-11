@@ -136,7 +136,7 @@ public class enemyMovement : MonoBehaviour
             Vector3 rayDirection = Quaternion.Euler(0, angle, 0) * transform.forward;
             ray = new Ray(transform.position, rayDirection);
 
-            //Debug.DrawRay(transform.position, rayDirection * 100, Color.red, 0.1f);
+            Debug.DrawRay(transform.position, rayDirection * 100, Color.red, 0.1f);
 
             if (Physics.Raycast(ray, out hit))
             {

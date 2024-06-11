@@ -26,6 +26,13 @@ public class playerMovement : MonoBehaviour
     //assigns character controller
     public CharacterController characterController;
 
+    //start invulnerable
+    public GameObject normalBody;
+    public GameObject invulnerableBody;
+
+    private float startTimer = 0;
+    private float endInvulnerability = 3f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,13 +40,31 @@ public class playerMovement : MonoBehaviour
         currentSpeed = speed;
         baseLineGravity = gravity;
         characterController = GetComponent<CharacterController>();
+
+        normalBody.SetActive(false);
+        invulnerableBody.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+    { 
+    Invulnerable();
+    } while (startTimer < endInvulnerability) ;
     }
+
+    private void Invulnerable()
+    {
+        Debug.Log("hoi");
+        startTimer += Time.deltaTime;
+        if (startTimer >= endInvulnerability)
+        {
+            normalBody.SetActive(true);
+            invulnerableBody.SetActive(false);
+        }
+    }
+
     private void Move()
     {
         //movement 
