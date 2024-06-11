@@ -49,14 +49,11 @@ public class playerMovement : MonoBehaviour
     void Update()
     {
         Move();
-    { 
-    Invulnerable();
-    } while (startTimer < endInvulnerability) ;
+        Invulnerable();
     }
 
     private void Invulnerable()
     {
-        Debug.Log("hoi");
         startTimer += Time.deltaTime;
         if (startTimer >= endInvulnerability)
         {
