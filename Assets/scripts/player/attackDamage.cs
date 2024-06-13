@@ -8,6 +8,7 @@ public class attackDamage : MonoBehaviour
     {
         if (other.CompareTag("enemy"))
         {
+            enemySpawner.enemysKilled++;
             Destroy(other.gameObject);
         }
     }

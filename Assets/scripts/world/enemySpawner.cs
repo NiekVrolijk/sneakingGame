@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class enemySpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static int enemysKilled = 0;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (enemysKilled >= 10)
+        {
+            SceneManager.LoadScene("winscreen");
+            enemysKilled = 0;
+        }
     }
 }
