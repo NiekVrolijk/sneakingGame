@@ -61,7 +61,7 @@ public class enemyMovement : MonoBehaviour
 
     public GameObject bullet;
     public Transform bulletSpawnPoint;
-    private float bulletSpeed = 25;
+    private float bulletSpeed = 30;
 
     // Start is called before the first frame update
     void Start()
